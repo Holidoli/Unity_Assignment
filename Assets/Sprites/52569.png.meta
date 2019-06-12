@@ -32,7 +32,7 @@ TextureImporter:
     21300054: 52569_29
     21300056: 52569_30
     21300058: 52569_31
-    21300060: 52569_32
+    21300060: Firework_03
     21300062: 52569_33
     21300064: 52569_34
     21300066: 52569_35
@@ -94,6 +94,8 @@ TextureImporter:
     21300178: Fireball_4
     21300180: Jump
     21300182: Random_box
+    21300184: Firework_2
+    21300186: Firework_01
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -789,7 +791,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 52569_32
+      name: Firework_03
       rect:
         serializedVersion: 2
         x: 112
@@ -2017,7 +2019,7 @@ TextureImporter:
         width: 16
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2037,13 +2039,53 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 59a78bb220548a04b87129f618c72c5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firework_2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 161
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ed6abfbe88be446b6042d0fef80f3a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firework_01
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 180
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76182f0913f5b0543ba0625f24f8488b
       vertices: []
       indices: 
       edges: []

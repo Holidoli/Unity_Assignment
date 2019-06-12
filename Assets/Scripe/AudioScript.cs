@@ -14,6 +14,8 @@ public class AudioScript : MonoBehaviour
     public AudioClip PauseClip;
     public AudioClip FireballClip;
     public AudioClip EnemyDieClip;
+    public AudioClip WinClip;
+    public AudioClip FlagClip;
     private AudioSource audioClipSource;
 
 

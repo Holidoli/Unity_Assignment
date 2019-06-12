@@ -10,7 +10,7 @@ public class Player_Control : MonoBehaviour
 
     private Rigidbody2D myrigidbody;
 
-    private UI _Ui;
+    //private UI _Ui;
 
     [SerializeField]
     private AudioClip jump_SF;
@@ -29,14 +29,16 @@ public class Player_Control : MonoBehaviour
 
     private bool Attacking1;
     private bool Attacking2;
-
+    private bool stop = false;
     public Transform projectileSpawnPoint;
     public Projectile projectilePrefab;
     public float projectileForce;
     public bool CanFireBall;
 
     public static int health;
-   
+    public bool Win = false;
+
+    public bool characterDisabled;
 
     // Start is called before the first frame update
     void Start()
@@ -44,34 +46,56 @@ public class Player_Control : MonoBehaviour
         myrigidbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         Projectile_Check();
-        _Ui = GameObject.Find("UI").GetComponent<UI>();
-
+        //_Ui = GameObject.Find("UI").GetComponent<UI>();
+        characterDisabled = false;
     }
     // Update is called once per frame
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-        float moveValue = Input.GetAxisRaw("Horizontal");
 
-
-        Player_Movement();
-        Player_Jump();
-        handleInput();
-
-        myAnim.SetFloat("Speed", Mathf.Abs(myrigidbody.velocity.x));
-        myAnim.SetBool("Ground", isGrounded);
-
-        if (((isFacingLeft && moveValue > 0) || (!isFacingLeft && moveValue < 0) ) && !Pause_Game.GameIsPaused)
+        if (Win || health <= 0)
         {
-            //print(isFacingLeft + " " + moveValue);
-            flip();
+            characterDisabled = true;
+        }
+
+        if (!characterDisabled)
+        {
+
+            float moveValue = Input.GetAxisRaw("Horizontal");
+
             Player_Movement();
             Player_Jump();
+            handleInput();
 
+            myAnim.SetFloat("Speed", Mathf.Abs(myrigidbody.velocity.x));
+            myAnim.SetBool("Ground", isGrounded);
+
+            if (((isFacingLeft && moveValue > 0) || (!isFacingLeft && moveValue < 0)) && !Pause_Game.GameIsPaused)
+            {
+                //print(isFacingLeft + " " + moveValue);
+                flip();
+                Player_Movement();
+                Player_Jump();
+
+            }
         }
+
+        if (Win)
+        {
+            ReachGoal();
+        }
+
     }
     void Player_Movement()
     {
+        //if (Pause_Game.GameIsPaused)
+        //    return;
+
+        if (stop == true)
+            return;
+
+
         if (Input.GetAxisRaw("Horizontal") > 0f)
         {
             myrigidbody.velocity = new Vector3(MoveSpeed, myrigidbody.velocity.y, 0f);
@@ -160,15 +184,92 @@ public class Player_Control : MonoBehaviour
             health -= 1;
             if (health <= 0)
             {
-                _Ui.Coin = 0;
-                GameManager.instance.PlayerDeath();
+                UI.Coin = 0;
                 Destroy(gameObject);
             }
             else
             {
+                GameManager.instance.PlayerDeath();
                 SceneManager.LoadScene("Level1");
             }
         }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            print(Time.time + " " + health);
+            health -= 1;
+            myAnim.SetBool("Dead", true);
+            if (health <= 0)
+            {
+                myAnim.SetBool("Dead", true);
+                UI.Coin = 0;
+                GameManager.instance.PlayerDeath();
+
+            }
+            else
+            {
+
+                GameManager.instance.PlayerRestart();
+            }
+
+        }
+
+        if (collision.gameObject.tag == "KillBox")
+        {
+            print(Time.time + " " + health);
+            health -= 1;
+            if (health <= 0)
+            {
+                myAnim.SetTrigger("enemy_Collision");
+                UI.Coin = 0;
+                GameManager.instance.PlayerDeath();
+
+            }
+            else
+            {
+                myAnim.SetTrigger("enemy_Collision");
+                GameManager.instance.PlayerRestart();
+            }
+
+        }
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Goal")
+        {
+            Win = true;
+            GameManager.instance.Player_Win();
+        }
+        
+        if(collision.gameObject.tag == "Door")
+        {
+            Destroy(collision.gameObject);
+
+            Destroy(gameObject);
+
+
+        }
+
+    }
+
+
+    public void ReachGoal()
+    {
+        
+        if(isGrounded)
+        {
+            myAnim.SetFloat("Speed", 1);
+            myAnim.SetBool("Ground", true);
+            myrigidbody.velocity = new Vector2(MoveSpeed / 3, 0);
+            
+        }
+        else if (!isGrounded)
+        {
+            myrigidbody.velocity = new Vector2(0, -MoveSpeed / 3);
+        }
+        
+        
     }
 
 }

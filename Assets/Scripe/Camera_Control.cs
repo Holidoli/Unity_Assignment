@@ -7,6 +7,13 @@ public class Camera_Control : MonoBehaviour
 {
 
     public GameObject Target;
+    public Transform leftBounds;
+    //public Transform rightBounds;
+
+    //public float smoothDampTime = 0.15f;
+    //private float smoothDampVelocity = Vector3.zero;
+
+    //private float camWidth, camHeight, levelMinx, levelMaxX;
 
     // Start is called before the first frame update
     void Start()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Fly_Enemy : MonoBehaviour
 {
     public int health;
 
@@ -22,25 +22,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(facingRight && transform.position.x > rightPoint.position.x)
-        //{
-        //    //facingRight = false;
-        //    flip();
-        //}
-
-        //if (!facingRight && transform.position.x < leftPoint.position.x)
-        //{
-        //    //facingRight = true;
-        //    flip();
-        //}
-        
-        if(facingRight)
+        if (facingRight)
         {
-            rb.velocity = new Vector3(speed, rb.velocity.y, 0f);
+            rb.velocity = new Vector3(rb.velocity.x, speed, 0f);
         }
         else
         {
-            rb.velocity = new Vector3(-speed, rb.velocity.y, 0f);
+            rb.velocity = new Vector3(rb.velocity.x, -speed, 0f);
         }
 
     }
@@ -73,7 +61,9 @@ public class Enemy : MonoBehaviour
     {
         facingRight = !facingRight;
         Vector3 scaleFactor = transform.localScale;
-        scaleFactor.x *= -1;
+        //scaleFactor.x *= -1;
         transform.localScale = scaleFactor;
     }
 }
+
+

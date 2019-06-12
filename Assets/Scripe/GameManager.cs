@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private UI _Ui;
+    private Animator myAnim;
 
     // Creates a class variable to keep track of 'GameManager' instance
     static GameManager _instance = null;
@@ -34,8 +35,9 @@ public class GameManager : MonoBehaviour {
 
         // Assign a starting score
         score = 0;
-
         Player_Control.health = 3;
+
+        myAnim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -133,15 +135,50 @@ public class GameManager : MonoBehaviour {
     public void PlayerDeath()
     {
         GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Stop();
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.deathClip, 3);
+        //myAnim.SetBool("Dead", true);
         StartCoroutine("Mario_Dead");
+        Time.timeScale = 0f;
+    }
+
+    public void PlayerRestart()
+    {
+        GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Stop();
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.deathClip, 3);
+        StartCoroutine("Mario_Resetlevel");
+        Time.timeScale = 0f;
+        
+    }
+
+    public void Player_Win()
+    {
+        GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Stop();
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.FlagClip, 3);
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.WinClip, 3);
+
+        StartCoroutine("Mario_Win");
     }
 
     IEnumerator Mario_Dead() 
     {
-        AudioScript.instance.PlayAudioClip(AudioScript.instance.deathClip, 3);
+        yield return new WaitForSecondsRealtime(4);
+        Time.timeScale = 1f;
+        //Player_Control.Destroy(gameObject);
+        SceneManager.LoadScene("Game_Over");
 
-        yield return new WaitForSeconds(4);
+    }
 
-        SceneManager.LoadScene("Game_Over");    
+    IEnumerator Mario_Resetlevel()
+    {
+        yield return new WaitForSecondsRealtime(4);
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level1");
+    }
+
+    IEnumerator Mario_Win()
+    {
+        yield return new WaitForSecondsRealtime(8);
+        SceneManager.LoadScene("Screen_Title");
     }
 }

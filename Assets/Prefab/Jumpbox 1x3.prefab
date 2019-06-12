@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3354538497853234628}
   - component: {fileID: 5117633845076586433}
   - component: {fileID: 7041113220521536228}
+  - component: {fileID: 4539540337405439177}
+  - component: {fileID: 130173298}
   m_Layer: 8
   m_Name: Jumpbox 1x3
   m_TagString: Untagged
@@ -72,6 +74,45 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!50 &4539540337405439177
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579354531180078538}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!114 &130173298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579354531180078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08db585e8fc60a948b213f47fb69c3bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
+  startPos: {fileID: 0}
+  rb: {fileID: 0}
+  facingRight: 0
+  speed: 1
 --- !u!1 &2508182732780705689
 GameObject:
   m_ObjectHideFlags: 0
