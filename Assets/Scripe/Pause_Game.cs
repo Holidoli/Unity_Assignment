@@ -8,7 +8,12 @@ public class Pause_Game : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    
+    private Level_BackgoundMusic lbm;
+
+    [SerializeField]
+    private AudioClip Pause_SF;
+
+    private AudioSource _Music;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +41,7 @@ public class Pause_Game : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Play();
         GameIsPaused = false;
     }
 
@@ -43,6 +49,8 @@ public class Pause_Game : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.PauseClip, 1);
+        GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Pause();
         GameIsPaused = true;
     }
 

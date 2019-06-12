@@ -9,6 +9,7 @@ TagManager:
   - Enemy_Projectile
   - Enemy_Undestructable
   - Coin
+  - Enemy
   layers:
   - Default
   - TransparentFX

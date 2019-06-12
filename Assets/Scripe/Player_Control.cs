@@ -13,6 +13,9 @@ public class Player_Control : MonoBehaviour
     private UI _Ui;
 
     [SerializeField]
+    private AudioClip jump_SF;
+
+    [SerializeField]
     private float jumpSpeed;
 
     public Transform groundCheck;
@@ -33,6 +36,7 @@ public class Player_Control : MonoBehaviour
     public bool CanFireBall;
 
     public static int health;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +44,7 @@ public class Player_Control : MonoBehaviour
         myrigidbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         Projectile_Check();
-
+        _Ui = GameObject.Find("UI").GetComponent<UI>();
 
     }
     // Update is called once per frame
@@ -86,6 +90,7 @@ public class Player_Control : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            AudioSource.PlayClipAtPoint(jump_SF, Camera.main.transform.position, 1f);
             myrigidbody.velocity = new Vector3(myrigidbody.velocity.x, jumpSpeed, 0f);
         }   
     }
@@ -107,6 +112,7 @@ public class Player_Control : MonoBehaviour
         {
             if(CanFireBall== true)
             {
+                AudioScript.instance.PlayAudioClip(AudioScript.instance.FireballClip, 1);
                 fire();
             }
         }
@@ -155,8 +161,8 @@ public class Player_Control : MonoBehaviour
             if (health <= 0)
             {
                 _Ui.Coin = 0;
+                GameManager.instance.PlayerDeath();
                 Destroy(gameObject);
-                SceneManager.LoadScene("Game_Over");
             }
             else
             {
@@ -164,4 +170,5 @@ public class Player_Control : MonoBehaviour
             }
         }
     }
+
 }

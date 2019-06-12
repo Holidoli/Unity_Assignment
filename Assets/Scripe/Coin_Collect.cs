@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Coin_Collect : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip _clip;
 
     private UI _Ui;
 
@@ -11,6 +13,7 @@ public class Coin_Collect : MonoBehaviour
     void Start()
     {
         _Ui = GameObject.Find("UI").GetComponent<UI>();
+        
     }
 
     // Update is called once per fram  e
@@ -22,6 +25,7 @@ public class Coin_Collect : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position, 1f);
             _Ui.UpdateCoin();
             Destroy(this.gameObject);
         }

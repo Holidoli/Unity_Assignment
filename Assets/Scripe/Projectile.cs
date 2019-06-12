@@ -20,4 +20,17 @@ public class Projectile : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            AudioScript.instance.PlayAudioClip(AudioScript.instance.EnemyDieClip, 3);
+
+            Destroy(collision.gameObject);
+
+            Destroy(gameObject);
+
+        }
+    }
 }

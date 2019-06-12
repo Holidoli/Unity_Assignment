@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 5
+  jump_SF: {fileID: 8300000, guid: 3eb363054d35ce846a99769e5a7e57c9, type: 3}
   jumpSpeed: 7.7
   groundCheck: {fileID: 4928039251559963051}
   groundCheckRadius: 0.1
@@ -157,6 +158,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1295097634, guid: 8c692a731e456d243a7fbcbf961b5924, type: 3}
   projectileForce: 7
   CanFireBall: 0
+  Mario_Dead: {fileID: 8300000, guid: 940fb9aa9a5685244bd5251b3add1382, type: 3}
 --- !u!95 &4928039250271372847
 Animator:
   serializedVersion: 3

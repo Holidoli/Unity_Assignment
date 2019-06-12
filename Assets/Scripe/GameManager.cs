@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour {
                 SceneManager.LoadScene("Screen_Title");
         }
 
-        if(SceneManager.GetActiveScene().name == "Level1" && Player_Control.health == 0)
-        {
-            SceneManager.LoadScene("Game_Over");
-        }
+        //if(SceneManager.GetActiveScene().name == "Level1" && Player_Control.health == 0)
+        //{
+        //    SceneManager.LoadScene("Game_Over");
+        //}
 
     }
 
@@ -129,5 +129,19 @@ public class GameManager : MonoBehaviour {
     {
         get { return _score; }      // can also use just 'get;'
         set { _score = value; }     // can also use just 'set;'
+    }
+    public void PlayerDeath()
+    {
+        GameObject.Find("BackGroundMusic").GetComponent<AudioSource>().Stop();
+        StartCoroutine("Mario_Dead");
+    }
+
+    IEnumerator Mario_Dead() 
+    {
+        AudioScript.instance.PlayAudioClip(AudioScript.instance.deathClip, 3);
+
+        yield return new WaitForSeconds(4);
+
+        SceneManager.LoadScene("Game_Over");    
     }
 }
